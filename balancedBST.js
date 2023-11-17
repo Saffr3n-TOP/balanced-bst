@@ -6,7 +6,7 @@ class BSTNode {
   }
 }
 
-class BalancedBST {
+class BST {
   constructor(arr) {
     this.#normalize(arr);
     this.root = this.#build(arr);
@@ -228,7 +228,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const tree = new BalancedBST(arr);
+const tree = new BST(arr);
 prettyPrint(tree.root);
 // tree.preOrder((node) => console.log(node.value));
 console.log(tree.postOrder());
