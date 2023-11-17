@@ -248,6 +248,12 @@ class BST {
 
     return false;
   }
+
+  rebalance() {
+    const arr = this.inOrder();
+    this.#normalize(arr);
+    this.root = this.#build(arr);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -263,8 +269,64 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-const tree = new BST(arr);
-tree.insert(300);
-prettyPrint(tree.root);
-console.log(tree.isBalanced());
+// Driver script
+(() => {
+  const arr = (() => {
+    const limit = 100;
+    const arr = [];
+    const rand = () => Math.floor(Math.random() * limit);
+
+    for (let i = 0; i < rand(); i++) {
+      arr.push(rand());
+    }
+
+    return arr;
+  })();
+
+  const tree = new BST(arr);
+
+  prettyPrint(tree.root);
+
+  console.log("Tree is balanced: " + tree.isBalanced());
+
+  console.log("\nLevel order:");
+  tree.levelOrder((node) => console.log(node.value));
+
+  console.log("\nIn order:");
+  tree.inOrder((node) => console.log(node.value));
+
+  console.log("\nPre order:");
+  tree.preOrder((node) => console.log(node.value));
+
+  console.log("\nPost order:");
+  tree.postOrder((node) => console.log(node.value));
+
+  tree.insert(9000);
+  tree.insert(420);
+  tree.insert(1337);
+  tree.insert(228);
+
+  console.log();
+  prettyPrint(tree.root);
+
+  console.log("\nTree is balanced: " + tree.isBalanced());
+
+  tree.rebalance();
+
+  console.log();
+  prettyPrint(tree.root);
+
+  console.log("\nTree is balanced: " + tree.isBalanced());
+
+  console.log("\nLevel order:");
+  tree.levelOrder((node) => console.log(node.value));
+
+  console.log("\nIn order:");
+  tree.inOrder((node) => console.log(node.value));
+
+  console.log("\nPre order:");
+  tree.preOrder((node) => console.log(node.value));
+
+  console.log("\nPost order:");
+  tree.postOrder((node) => console.log(node.value));
+})();
