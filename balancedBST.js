@@ -163,6 +163,31 @@ class BalancedBST {
 
     return arr;
   }
+
+  preOrder(cb) {
+    return this.#preOrder(cb, [this.root], []);
+  }
+
+  #preOrder(cb, stack, arr) {
+    const root = stack[stack.length - 1];
+
+    arr.push(root.value);
+    if (cb) cb(root);
+
+    if (root.left) {
+      stack.push(root.left);
+      this.#preOrder(cb, stack, arr);
+    }
+
+    stack.pop();
+
+    if (root.right) {
+      stack.push(root.right);
+      this.#preOrder(cb, stack, arr);
+    }
+
+    return arr;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -181,5 +206,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const tree = new BalancedBST(arr);
 prettyPrint(tree.root);
-tree.inOrder((node) => console.log(node.value));
-console.log(tree.inOrder());
+// tree.preOrder((node) => console.log(node.value));
+console.log(tree.preOrder());
