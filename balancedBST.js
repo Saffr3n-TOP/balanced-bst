@@ -227,6 +227,27 @@ class BST {
     if (!node) return -1;
     return this.height(this.root) - this.height(node);
   }
+
+  isBalanced() {
+    return this.#isBalanced(this.root);
+  }
+
+  #isBalanced(root) {
+    if (!root) return true;
+
+    const leftHeight = this.height(root.left);
+    const rightHeight = this.height(root.right);
+
+    if (
+      Math.abs(leftHeight - rightHeight) <= 1 &&
+      this.#isBalanced(root.left) &&
+      this.#isBalanced(root.right)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -244,5 +265,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const tree = new BST(arr);
+tree.insert(300);
 prettyPrint(tree.root);
-console.log(tree.depth(tree.root.right.left.left.right));
+console.log(tree.isBalanced());
