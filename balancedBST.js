@@ -52,6 +52,51 @@ class BalancedBST {
 
     return root;
   }
+
+  delete(value) {
+    this.root = this.#deleteRec(value, this.root);
+  }
+
+  #deleteRec(value, root) {
+    if (!root) {
+      return null;
+    }
+
+    if (value < root.value) {
+      root.left = this.#deleteRec(value, root.left);
+      return root;
+    }
+    if (value > root.value) {
+      root.right = this.#deleteRec(value, root.right);
+      return root;
+    }
+
+    if (!root.left) {
+      return root.right;
+    }
+    if (!root.right) {
+      return root.left;
+    }
+
+    let successorParent = root;
+    let successor = root.right;
+
+    while (successor.left) {
+      successorParent = successor;
+      successor = successor.left;
+    }
+
+    if (successorParent !== root) {
+      successorParent.left = null;
+    } else {
+      successorParent.right = null;
+    }
+
+    successor.left = root.left;
+    successor.right = root.right;
+
+    return successor;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
