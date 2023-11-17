@@ -33,6 +33,25 @@ class BalancedBST {
 
     return root;
   }
+
+  insert(value) {
+    this.root = this.#insertRec(value, this.root);
+  }
+
+  #insertRec(value, root) {
+    if (!root) {
+      return new BSTNode(value);
+    }
+
+    if (value < root.value) {
+      root.left = this.#insertRec(value, root.left);
+    }
+    if (value > root.value) {
+      root.right = this.#insertRec(value, root.right);
+    }
+
+    return root;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
