@@ -222,6 +222,11 @@ class BST {
     if (leftHeight > rightHeight) return leftHeight + 1;
     return rightHeight + 1;
   }
+
+  depth(node) {
+    if (!node) return -1;
+    return this.height(this.root) - this.height(node);
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -240,4 +245,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const tree = new BST(arr);
 prettyPrint(tree.root);
-console.log(tree.height(tree.root.left));
+console.log(tree.depth(tree.root.right.left.left.right));
