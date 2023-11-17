@@ -97,6 +97,25 @@ class BalancedBST {
 
     return successor;
   }
+
+  find(value) {
+    return this.#find(value, this.root);
+  }
+
+  #find(value, root) {
+    if (!root) {
+      return null;
+    }
+    if (value === root.value) {
+      return root;
+    }
+    if (value < root.value) {
+      return this.#find(value, root.left);
+    }
+    if (value > root.value) {
+      return this.#find(value, root.right);
+    }
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
